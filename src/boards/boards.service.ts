@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Board, BoardStatus } from './board.model';
+import { Board, BoardStatus, BOARD_STATUS } from './board.model';
 import { randomUUID } from 'crypto';
 import { CreateBoardDto } from './dto/create-board.dto';
 
@@ -24,7 +24,7 @@ export class BoardsService {
       id: randomUUID(),
       title,
       description,
-      status: BoardStatus.PUBLIC,
+      status: BOARD_STATUS.public,
     };
 
     this.boards.push(board);
