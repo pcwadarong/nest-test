@@ -17,6 +17,13 @@ export class BoardsService {
     return this.boardRepository.find();
   }
 
+  async getBoardsById(user: User): Promise<Board[]> {
+    const query = this.boardRepository.createQueryBuilder('board');
+    query.where('board.userId = :userId', { userId: user.id });
+    const boards = await query.getMany();
+    return boards;
+  }
+
   async findOne(id: number): Promise<Board> {
     const found = await this.boardRepository.findOneBy({ id });
     if (!found) throw new NotFoundException(`Board with ID "${id}" not found`);

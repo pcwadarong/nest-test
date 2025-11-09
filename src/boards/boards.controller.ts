@@ -25,9 +25,16 @@ import { User } from 'src/auth/auth.entity';
 export class BoardsController {
   constructor(private boardService: BoardsService) {}
 
+  // @Get()
+  // getAllBoard(): Promise<Board[]> {
+  //   return this.boardService.findAll();
+  // }
+
   @Get()
-  getAllBoard(): Promise<Board[]> {
-    return this.boardService.findAll();
+  getBoardsById(
+    @GetUser() user: User
+  ): Promise<Board[]> {
+    return this.boardService.getBoardsById(user);
   }
 
   @Get('/:id')
