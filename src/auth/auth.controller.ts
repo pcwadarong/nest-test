@@ -7,12 +7,12 @@ import {
   Req,
   UseGuards,
   Delete,
-  Param
+  Param,
 } from '@nestjs/common';
 import { AuthCredentialDto } from './dto/auth-credential.dto';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
-import { getUser } from './get-user.decorator';
+import { GetUser } from './get-user.decorator';
 import { User } from './auth.entity';
 
 @Controller('auth')
@@ -35,7 +35,7 @@ export class AuthController {
   @Post('/test')
   // userGuards로 authGuard를 넣어줘야 request 객체 안에 user data가 생김
   @UseGuards(AuthGuard())
-  test(@getUser() user: User) {
+  test(@GetUser() user: User) {
     console.log(user);
   }
 }
