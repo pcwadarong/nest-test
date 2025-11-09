@@ -1,44 +1,47 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Board, BoardStatus, BOARD_STATUS } from './board.model';
-import { randomUUID } from 'crypto';
-import { CreateBoardDto } from './dto/create-board.dto';
+import { Repository } from 'typeorm';
+import { Board } from './board.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class BoardsService {
-  private boards: Board[] = [];
+  constructor(
+    @InjectRepository(Board)
+    private BoardRepository: Repository<Board>,
+  ) {}
 
-  getAllBoards(): Board[] {
-    return this.boards;
-  }
+  // getAllBoards(): Board[] {
+  //   return this.boards;
+  // }
 
-  getBoardById(id: string): Board {
-    const board = this.boards.find((board) => board.id === id);
-    if (!board) throw new NotFoundException(`Board with ID "${id}" not found`);
-    return board;
-  }
+  // getBoardById(id: string): Board {
+  //   const board = this.boards.find((board) => board.id === id);
+  //   if (!board) throw new NotFoundException(`Board with ID "${id}" not found`);
+  //   return board;
+  // }
 
-  createBoard(createBoardDto: CreateBoardDto) {
-    const { title, description } = createBoardDto;
+  // createBoard(createBoardDto: CreateBoardDto) {
+  //   const { title, description } = createBoardDto;
 
-    const board = {
-      id: randomUUID(),
-      title,
-      description,
-      status: BOARD_STATUS.public,
-    };
+  //   const board = {
+  //     id: randomUUID(),
+  //     title,
+  //     description,
+  //     status: BOARD_STATUS.public,
+  //   };
 
-    this.boards.push(board);
-    return board;
-  }
+  //   this.boards.push(board);
+  //   return board;
+  // }
 
-  deleteBoard(id: string): void {
-    const deleted = this.getBoardById(id);
-    this.boards.filter((board) => board.id !== deleted.id);
-  }
+  // deleteBoard(id: string): void {
+  //   const deleted = this.getBoardById(id);
+  //   this.boards.filter((board) => board.id !== deleted.id);
+  // }
 
-  updateBoardStatus(id: string, status: BoardStatus): Board {
-    const board = this.getBoardById(id);
-    board.status = status;
-    return board;
-  }
+  // updateBoardStatus(id: string, status: BoardStatus): Board {
+  //   const board = this.getBoardById(id);
+  //   board.status = status;
+  //   return board;
+  // }
 }

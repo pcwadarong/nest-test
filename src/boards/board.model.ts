@@ -1,10 +1,3 @@
-export interface Board {
-  id: string;
-  title: string;
-  description: string;
-  status: BoardStatus;
-}
-
 export const BOARD_STATUS = {
   public: 'PUBLIC',
   private: 'PRIVATE',

@@ -10,7 +10,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { BoardsService } from './boards.service';
-import type { Board, BoardStatus } from './board.model';
+import type { BoardStatus } from './board.model';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe';
 
@@ -18,32 +18,32 @@ import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe'
 export class BoardsController {
   constructor(private boardService: BoardsService) {}
 
-  @Get()
-  getAllBoard(): Board[] {
-    return this.boardService.getAllBoards();
-  }
+  // @Get()
+  // getAllBoard(): Board[] {
+  //   return this.boardService.getAllBoards();
+  // }
 
-  @Get('/:id')
-  getBoardByID(@Param('id') id: string): Board {
-    return this.boardService.getBoardById(id);
-  }
+  // @Get('/:id')
+  // getBoardByID(@Param('id') id: string): Board {
+  //   return this.boardService.getBoardById(id);
+  // }
 
-  @Post()
-  @UsePipes(ValidationPipe)
-  createBoard(@Body() createBoardDto: CreateBoardDto): Board {
-    return this.boardService.createBoard(createBoardDto);
-  }
+  // @Post()
+  // @UsePipes(ValidationPipe)
+  // createBoard(@Body() createBoardDto: CreateBoardDto): Board {
+  //   return this.boardService.createBoard(createBoardDto);
+  // }
 
-  @Delete('/:id')
-  deleteBoard(@Param('id') id: string): void {
-    return this.boardService.deleteBoard(id);
-  }
+  // @Delete('/:id')
+  // deleteBoard(@Param('id') id: string): void {
+  //   return this.boardService.deleteBoard(id);
+  // }
 
-  @Patch('/:id/status')
-  updateBoardStatus(
-    @Param('id') id: string,
-    @Body('status', BoardStatusValidationPipe) status: BoardStatus,
-  ): Board {
-    return this.boardService.updateBoardStatus(id, status);
-  }
+  // @Patch('/:id/status')
+  // updateBoardStatus(
+  //   @Param('id') id: string,
+  //   @Body('status', BoardStatusValidationPipe) status: BoardStatus,
+  // ): Board {
+  //   return this.boardService.updateBoardStatus(id, status);
+  // }
 }
