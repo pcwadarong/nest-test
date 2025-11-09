@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { Board } from './board.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateBoardDto } from './dto/create-board.dto';
-import { BOARD_STATUS } from './board.model';
+import { BOARD_STATUS, BoardStatus } from './board.model';
 
 @Injectable()
 export class BoardsService {
@@ -39,9 +39,11 @@ export class BoardsService {
     await this.boardRepository.delete(id);
   }
 
-  // updateBoardStatus(id: string, status: BoardStatus): Board {
-  //   const board = this.getBoardById(id);
-  //   board.status = status;
-  //   return board;
-  // }
+  async updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
+    const board: Board = await this.findOne(id);
+
+    board['status'] = status;
+    await this.boardRepository.save(board);
+    return board;
+  }
 }
