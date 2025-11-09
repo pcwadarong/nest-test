@@ -31,9 +31,7 @@ export class BoardsController {
   // }
 
   @Get()
-  getBoardsById(
-    @GetUser() user: User
-  ): Promise<Board[]> {
+  getBoardsById(@GetUser() user: User): Promise<Board[]> {
     return this.boardService.getBoardsById(user);
   }
 
@@ -52,8 +50,11 @@ export class BoardsController {
   }
 
   @Delete('/:id')
-  deleteBoard(@Param('id', ParseIntPipe) id): Promise<void> {
-    return this.boardService.deleteBoard(id);
+  deleteBoard(
+    @Param('id', ParseIntPipe) id,
+    @GetUser() user: User,
+  ): Promise<void> {
+    return this.boardService.deleteBoard(id, user);
   }
 
   @Patch('/:id/status')
