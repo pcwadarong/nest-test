@@ -7,18 +7,18 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class BoardsService {
   constructor(
     @InjectRepository(Board)
-    private BoardRepository: Repository<Board>,
+    private boardRepository: Repository<Board>,
   ) {}
 
-  // getAllBoards(): Board[] {
-  //   return this.boards;
-  // }
+  async findAll(): Promise<Board[]> {
+    return this.boardRepository.find();
+  }
 
-  // getBoardById(id: string): Board {
-  //   const board = this.boards.find((board) => board.id === id);
-  //   if (!board) throw new NotFoundException(`Board with ID "${id}" not found`);
-  //   return board;
-  // }
+  async findOne(id: number): Promise<Board> {
+    const found = await this.boardRepository.findOneBy({ id });
+    if (!found) throw new NotFoundException(`Board with ID "${id}" not found`);
+    return found;
+  }
 
   // createBoard(createBoardDto: CreateBoardDto) {
   //   const { title, description } = createBoardDto;

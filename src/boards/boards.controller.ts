@@ -13,20 +13,21 @@ import { BoardsService } from './boards.service';
 import type { BoardStatus } from './board.model';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe';
+import { Board } from './board.entity';
 
 @Controller('boards')
 export class BoardsController {
   constructor(private boardService: BoardsService) {}
 
-  // @Get()
-  // getAllBoard(): Board[] {
-  //   return this.boardService.getAllBoards();
-  // }
+  @Get()
+  getAllBoard(): Promise<Board[]> {
+    return this.boardService.findAll();
+  }
 
-  // @Get('/:id')
-  // getBoardByID(@Param('id') id: string): Board {
-  //   return this.boardService.getBoardById(id);
-  // }
+  @Get('/:id')
+  findOne(@Param('id') id: number): Promise<Board> {
+    return this.boardService.findOne(id);
+  }
 
   // @Post()
   // @UsePipes(ValidationPipe)
